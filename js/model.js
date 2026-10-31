@@ -96,7 +96,7 @@ export function tableEl(r = 3, c = 3, o = {}) {
     font: 'Inter', size: 18, color: '#1d1d24', head: '#7b3fe4', headColor: '#ffffff', cell: '#ffffff', stripe: '#f4f1fb', border: '#d9d4e6', bw: 1, pad: 10, ...o,
   });
 }
-export function qrEl(data = 'https://liemyo.github.io/canva/', o = {}) {
+export function qrEl(data = 'https://amatu-id.github.io/canva/', o = {}) {
   return base('qr', { kind: 'qr', data, fg: '#111111', bg: '#ffffff', ecc: 'M', w: 300, h: 300, ...o });
 }
 

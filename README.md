@@ -2,7 +2,7 @@
 
 Editor desain grafis di browser — media sosial, presentasi, poster, logo, dokumen — dengan template, foto, ikon, efek teks, animasi, dan alat AI. Tema liquid glass terang/gelap.
 
-**Buka:** https://liemyo.github.io/canva/
+**Buka:** https://amatu-id.github.io/canva/
 
 ## Fitur
 

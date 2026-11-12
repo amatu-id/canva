@@ -419,7 +419,8 @@ Panels.register('uploads', {
     zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('over'); });
     zone.addEventListener('dragleave', () => zone.classList.remove('over'));
     zone.addEventListener('drop', (e) => { e.preventDefault(); zone.classList.remove('over'); up([...e.dataTransfer.files]); });
-    b.append(h('button.btn.btn-primary.block', { type: 'button', onclick: async () => up(await pickFiles('image/*', true)) }, icon('upload'), 'Unggah file'), zone);
+    b.append(h('button.btn.btn-primary.block', { type: 'button', onclick: async () => up(await pickFiles('image/*', true)) }, icon('upload'), 'Unggah file'),
+      h('button.btn.btn-ghost.block', { type: 'button', onclick: () => import('../tools/trace.js').then(m => m.openTrace()), dataset: { tip: 'Unggah gambar lalu otomatis di-trace menjadi garis vektor' } }, icon('gesture'), 'Unggah & trace otomatis'), zone);
     const grid = h('div.masonry');
     b.append(sec('Gambar', null, grid));
     Store.listAssets().then(list => {
@@ -508,6 +509,7 @@ function copyPages(d) {
 export const APPS = [
   ['qr', 'Kode QR', 'qr_code_2', 'Buat kode QR untuk tautan, WhatsApp, Wi-Fi, atau teks.', '#111827'],
   ['barcode', 'Barcode', 'barcode', 'Barcode EAN-13, UPC, Code128 untuk label produk.', '#334155'],
+  ['trace', 'Trace Otomatis', 'gesture', 'Unggah gambar → garis vektor halus & presisi mengikuti objek (isian warna opsional).', '#0f766e'],
   ['bgremove', 'Hapus Latar', 'background_replace', 'Hapus latar belakang foto otomatis dengan AI di perangkat.', '#7b3fe4'],
   ['aiimage', 'Teks ke Gambar', 'auto_awesome', 'Tulis deskripsi, dapatkan gambar dari AI.', '#db2777'],
   ['aiwrite', 'Tulis Ajaib', 'edit_note', 'Buat caption, judul, dan teks promosi dengan AI.', '#0e9384'],
@@ -533,6 +535,7 @@ export function runApp(k) {
   if (k === 'mockup') return Panels.open('elements');
   if (k === 'curve') { addText('sub', { html: 'TEKS MELENGKUNG', curve: 50, ls: 120 }); setTimeout(() => { E.emit('endEdit'); Panels.open('fx'); }, 80); return; }
   if (k === 'emoji') return iconSearchPanel('smile', STICKER_SETS, 'Emoji & Stiker');
+  if (k === 'trace') { const one = E.one(); return import('../tools/trace.js').then(m => (one?.type === 'image' && one.src ? m.openTrace({ el: one }) : m.openTrace())); }
   if (k === 'bgremove') { const one = E.one(); if (one?.type === 'image' && one.src) return Panels.open('photo', { tab: 'bg' }); toast('Pilih foto di kanvas terlebih dahulu'); return; }
   Panels.open(k);
 }

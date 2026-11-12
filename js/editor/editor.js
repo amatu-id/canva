@@ -82,6 +82,7 @@ function fileMenu(anchor) {
     { label: 'Unduh', icon: 'download', run: () => openExport(E.d, { page: E.pi }) },
     { label: 'Simpan file proyek (.amatu)', icon: 'save', run: () => saveProjectFile() },
     { label: 'Impor file proyek', icon: 'upload_file', run: () => importProjectFile() },
+    { label: 'Trace gambar otomatis…', icon: 'gesture', run: () => import('../tools/trace.js').then(m => m.openTrace()) },
     { sep: 1 },
     { label: 'Tampilan', icon: 'visibility', sub: [
       { label: 'Tampilkan margin', checked: !!E.view?.margin, run: () => toggleView('margin') },

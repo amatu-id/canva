@@ -743,6 +743,7 @@ export function contextMenu(at) {
     { label: locked ? 'Buka kunci' : 'Kunci', icon: locked ? 'lock_open' : 'lock', kbd: 'Ctrl+Shift+L', run: () => E.toggleLock() },
     one?.type === 'image' && one.src ? { label: 'Jadikan latar belakang', icon: 'wallpaper', run: () => C('asBg') } : null,
     one?.type === 'image' && one.src ? { label: 'Pangkas', icon: 'crop', run: () => startCrop(one.id) } : null,
+    one?.type === 'image' && one.src ? { label: 'Trace otomatis (jadi garis)', icon: 'gesture', run: () => import('../tools/trace.js').then(m => m.openTrace({ el: one })) } : null,
     { label: 'Tautan', icon: 'link', kbd: 'Ctrl+K', run: () => C('link') },
     { label: 'Animasi', icon: 'animation', run: () => C('panel:anim') },
   ]);

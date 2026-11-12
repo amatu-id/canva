@@ -170,6 +170,7 @@ function imageTools(els, one) {
   return [
     tb('Edit foto', 'tune', () => Panels.open('photo'), { on: Panels.cur === 'photo' }),
     tb('Hapus latar', 'background_replace', () => Panels.open('photo', { tab: 'bg' })),
+    one ? tb('Trace', 'gesture', () => import('../tools/trace.js').then(m => m.openTrace({ el: one })), { tip: 'Trace otomatis: jadikan garis vektor' }) : null,
     one ? tb('Pangkas', 'crop', () => Canvas.startCrop(one.id)) : null,
     ib('flip', 'Balik', (ev) => flipMenu(ev.currentTarget, els)),
     sep(),
@@ -187,8 +188,20 @@ function svgTools(els, one) {
     if (one.mono || !cols.length) out.push(colorBtn(one.mono || '#000000', 'Warna', () => Panels.open('color', { target: 'mono' })));
     cols.slice(0, 8).forEach(c => out.push(colorBtn(one.colors?.[c] || c, 'Warna', () => Panels.open('color', { target: 'svg:' + c }))));
   }
+  if (one && /data-tr="(?:line|outline)"/.test(one.svg || '')) out.push(sep(), traceWeightBtn(one));
   out.push(sep(), ib('flip', 'Balik', (ev) => flipMenu(ev.currentTarget, els)), tb('Bayangan', 'shadow', () => Panels.open('shadow')));
   return out;
+}
+// Line thickness of a traced drawing (stroke widths live in the SVG markup; outline keeps its ratio).
+function traceWeightBtn(e) {
+  return ib('line_weight', 'Tebal garis trace', (ev) => {
+    const vb = (e.svg.match(/viewBox="([^"]+)"/)?.[1] || '0 0 1000 1000').split(/[\s,]+/).map(Number), u = Math.max(vb[2] || 1000, vb[3] || 1000) / 1000;
+    const get = (k) => +(e.svg.match(new RegExp('data-tr="' + k + '"[^>]*?stroke-width="([\\d.]+)"'))?.[1] || 0);
+    const ln = get('line'), ol = get('outline'), ratio = ln && ol ? ol / ln : 1.35, cur = ln || ol / ratio || u * 2;
+    const apply = (v, commit) => E.set((x) => { x.svg = x.svg.replace(/(data-tr="(line|outline)"[^>]*?stroke-width=")([\d.]+)"/g, (m, a, k) => a + +(v * u * (k === 'outline' ? ratio : 1)).toFixed(2) + '"'); }, { els: [e], commit });
+    popover(ev.currentTarget, h('div', { style: { width: '250px', padding: '14px' } },
+      slider({ label: 'Tebal garis', min: 0.5, max: 14, step: 0.25, value: round(cur / u, 2), oninput: (v) => apply(v, false), onchange: (v) => apply(v, true) })));
+  });
 }
 export function svgColors(e) {
   if (e._cols) return e._cols;

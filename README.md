@@ -12,6 +12,7 @@ Editor desain grafis di browser — media sosial, presentasi, poster, logo, doku
 - **Teks**: 100+ Google Fonts, kombinasi font, efek (bayangan, angkat, berongga, sambung, garis tepi, gema, glitch, neon, latar, gradasi), teks melengkung, daftar.
 - **Foto**: 18 filter, penyesuaian (kecerahan, kontras, saturasi, suhu, rona, pudar, vinyet, blur), pangkas, bentuk/mask, bayangan, hapus latar AI di perangkat.
 - **Animasi & presentasi**: 13 animasi elemen, animasi halaman, transisi, presentasi layar penuh dengan putar otomatis, timer, dan catatan.
+- **Trace Otomatis** (`js/trace/`, `js/tools/trace.js`): unggah gambar (foto objek, sketsa, clipart) → garis vektor halus & presisi mengikuti objek — deteksi tepi sub-piksel, latar polos & bayangan lantai dibuang otomatis, fokus otomatis ke objek, kurva Bézier tanpa patah-patah; isian warna opsional (default tanpa warna). Hasil berupa elemen SVG yang warna & tebal garisnya bisa diubah. Masuk lewat Aplikasi › Trace Otomatis, Unggahan › Unggah & trace, tombol Trace pada foto, menu File, atau alat di beranda.
 - **Aplikasi**: kode QR, barcode, palet dari foto, ubah ukuran ajaib, teks ke gambar & tulis ajaib (AI), menggambar bebas.
 - **Ekspor**: PNG (transparan), JPG, PDF standar/cetak, SVG, PowerPoint, file proyek `.amatu`, tautan salinan, salin gambar.
 - **Alat gratis di beranda**: hapus latar, editor foto, kolase, konversi/kompres gambar, gambar ke PDF, palet warna, kombinasi font.

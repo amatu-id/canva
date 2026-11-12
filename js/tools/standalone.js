@@ -11,6 +11,7 @@ import { PAIRS, loadFont, fontStack } from '../fonts.js';
 import { templateById } from '../templates.js';
 
 export const HOME_TOOLS = [
+  ['trace', 'Trace Gambar ke Garis', 'gesture', 'Foto atau sketsa jadi garis vektor halus & presisi — edit di desain atau unduh SVG.', 'linear-gradient(135deg,#0f766e,#22c55e)', 'Baru'],
   ['bgremove', 'Hapus Latar Belakang', 'background_replace', 'Pisahkan objek dari latar foto secara otomatis, langsung di browser.', 'linear-gradient(135deg,#7b3fe4,#ff5fa2)', 'AI'],
   ['photo', 'Editor Foto', 'tune', 'Filter, penyesuaian warna, pangkas, bingkai, dan teks di atas foto.', 'linear-gradient(135deg,#0ea5e9,#6366f1)'],
   ['qr', 'Pembuat Kode QR', 'qr_code_2', 'Kode QR untuk tautan, WhatsApp, Wi-Fi — unduh PNG atau SVG.', 'linear-gradient(135deg,#111827,#475467)'],
@@ -35,7 +36,7 @@ async function openNew(d, panel) {
 const checker = 'repeating-conic-gradient(#e5e7eb 0 25%, #fff 0 50%) 0 0 / 18px 18px';
 
 export function runTool(k) {
-  ({ bgremove, photo, qr, collage, aiimage, convert, compress: () => convert(true), img2pdf, palette, barcode, fonts, logo, mockup, pres })[k]?.();
+  ({ trace: () => import('./trace.js').then(m => m.openTrace({ standalone: true })), bgremove, photo, qr, collage, aiimage, convert, compress: () => convert(true), img2pdf, palette, barcode, fonts, logo, mockup, pres })[k]?.();
 }
 
 // ---------- background remover ----------
